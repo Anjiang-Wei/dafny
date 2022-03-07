@@ -2806,67 +2806,7 @@ procedure CheckWellformed$$_module.__default.returnOneArray()
 
 
 
-implementation CheckWellformed$$_module.__default.returnOneArray() returns (a#0: ref)
-{
-  var $_Frame: <beta>[ref,Field beta]bool;
-
-    // AddMethodImpl: returnOneArray, CheckWellformed$$_module.__default.returnOneArray
-    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
-      $o != null && read($Heap, $o, alloc) ==> false);
-    havoc $Heap;
-    assume (forall $o: ref :: 
-      { $Heap[$o] } 
-      $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
-    assume $HeapSucc(old($Heap), $Heap);
-    havoc a#0;
-    assert a#0 != null;
-    assume _System.array.Length(a#0) == LitInt(1);
-    assert a#0 != null;
-    assert 0 <= LitInt(0) && LitInt(0) < _System.array.Length(a#0);
-    assume $Unbox(read($Heap, a#0, IndexField(LitInt(0)))): int == LitInt(1);
-}
-
-
-
-procedure Call$$_module.__default.returnOneArray()
-   returns (a#0: ref
-       where $Is(a#0, Tclass._System.array(TInt))
-         && $IsAlloc(a#0, Tclass._System.array(TInt), $Heap));
-  modifies $Heap, $Tick;
-  // user-defined postconditions
-  free ensures true;
-  ensures _System.array.Length(a#0) == LitInt(1);
-  ensures $Unbox(read($Heap, a#0, IndexField(LitInt(0)))): int == LitInt(1);
-  // frame condition: object granularity
-  free ensures (forall $o: ref :: 
-    { $Heap[$o] } 
-    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
-  // boilerplate
-  free ensures $HeapSucc(old($Heap), $Heap);
-
-
-
 procedure Impl$$_module.__default.returnOneArray()
-   returns (a#0: ref
-       where $Is(a#0, Tclass._System.array(TInt))
-         && $IsAlloc(a#0, Tclass._System.array(TInt), $Heap), 
-    $_reverifyPost: bool);
-  free requires 1 == $FunctionContextHeight;
-  modifies $Heap, $Tick;
-  // user-defined postconditions
-  free ensures true;
-  ensures _System.array.Length(a#0) == LitInt(1);
-  ensures $Unbox(read($Heap, a#0, IndexField(LitInt(0)))): int == LitInt(1);
-  // frame condition: object granularity
-  free ensures (forall $o: ref :: 
-    { $Heap[$o] } 
-    $o != null && read(old($Heap), $o, alloc) ==> $Heap[$o] == old($Heap)[$o]);
-  // boilerplate
-  free ensures $HeapSucc(old($Heap), $Heap);
-
-
-
-implementation Impl$$_module.__default.returnOneArray() returns (a#0: ref, $_reverifyPost: bool)
 {
   var s: CVC_Seq int;
 
