@@ -1,6 +1,14 @@
 // Dafny 3.4.2.40221
 // Command Line Options: array1.dfy /print:array1.bpl
 
+type {:builtin "Seq"} CVC_Seq _;
+function {:builtin "seq.empty"} Seq_Empty_int(): CVC_Seq int;
+function {:builtin "seq.len"} Seq_Len_int(a: CVC_Seq int): int;
+function {:builtin "seq.++"} Seq_Concat_int(a: CVC_Seq int, b: CVC_Seq int): CVC_Seq int;
+function {:builtin "seq.unit"} Seq_Unit_int(v: int): CVC_Seq int;
+function {:builtin "seq.nth"} Seq_Nth_int(a: CVC_Seq int, i: int): int;
+function {:builtin "seq.extract"} Seq_Extract_int(a: CVC_Seq int, pos: int, length: int): CVC_Seq int;
+
 type Ty;
 
 type TyTag;
@@ -2860,34 +2868,11 @@ procedure Impl$$_module.__default.returnOneArray()
 
 implementation Impl$$_module.__default.returnOneArray() returns (a#0: ref, $_reverifyPost: bool)
 {
-  var $_Frame: <beta>[ref,Field beta]bool;
-  var $nw: ref;
-  var $rhs#0: int;
+  var s: CVC_Seq int;
 
-    // AddMethodImpl: returnOneArray, Impl$$_module.__default.returnOneArray
-    $_Frame := (lambda<alpha> $o: ref, $f: Field alpha :: 
-      $o != null && read($Heap, $o, alloc) ==> false);
-    $_reverifyPost := false;
-    // ----- assignment statement ----- /rsgs/pool0/anjiang/dafny/benchmark/array1.dfy(4,7)
-    assume true;
-    assert 0 <= LitInt(1);
-    havoc $nw;
-    assume $nw != null && dtype($nw) == Tclass._System.array?(TInt);
-    assume !read($Heap, $nw, alloc);
-    assume _System.array.Length($nw) == LitInt(1);
-    $Heap := update($Heap, $nw, alloc, true);
-    assume $IsGoodHeap($Heap);
-    assume $IsHeapAnchor($Heap);
-    a#0 := $nw;
-    // ----- assignment statement ----- /rsgs/pool0/anjiang/dafny/benchmark/array1.dfy(5,10)
-    assert a#0 != null;
-    assert 0 <= LitInt(0) && LitInt(0) < _System.array.Length(a#0);
-    assume true;
-    assert $_Frame[a#0, IndexField(LitInt(0))];
-    assume true;
-    $rhs#0 := LitInt(1);
-    $Heap := update($Heap, a#0, IndexField(LitInt(0)), $Box($rhs#0));
-    assume $IsGoodHeap($Heap);
+  s := Seq_Concat_int(Seq_Empty_int(), Seq_Unit_int(0));
+  assert Seq_Len_int(s) == 1;
+  assert Seq_Nth_int(s, 0) == 10000;
 }
 
 
