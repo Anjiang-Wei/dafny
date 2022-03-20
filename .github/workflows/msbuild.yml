@@ -2,9 +2,9 @@ name: Build and Test
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, cvc5 ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, cvc5 ]
 
 env:
   dotnet-version: 6.0.x # SDK Version for building Dafny

@@ -2,11 +2,11 @@ name: Test Brew release on Mac
 
 on:
   workflow_dispatch:
-    branches: [ master ]
+    branches: [ master, cvc5 ]
   push:
-    branches: [ master ]
+    branches: [ master, cvc5 ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, cvc5 ]
 
 jobs:
   build:
