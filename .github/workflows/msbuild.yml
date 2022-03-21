@@ -42,7 +42,7 @@ jobs:
     - name: Checkout Boogie
       uses: actions/checkout@v2
       with:
-        repository: boogie-org/boogie
+        repository: Anjiang-Wei/boogie
         path: dafny/boogie
         ref: v${{ steps.regex-match.outputs.group1 }}
     - name: Build Dafny with local Boogie
