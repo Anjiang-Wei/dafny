@@ -2,9 +2,9 @@ name: Build and Test DafnyRuntimeJava
 
 on:
   push:
-    branches: [ master, cvc5 ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, cvc5 ]
+    branches: [ master ]
 
 jobs:
   build:
